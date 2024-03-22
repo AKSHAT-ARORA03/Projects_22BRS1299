@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Collaboration form</title>
+    <style>
+        .error { color: red; }
+        
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: flex;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #but{
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #but:hover {
+            background-color: green;
+        }
+
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Student Collaboration form </h2>
+    <form id="myform" onsubmit="return displayData(event)">
+        <label for="Comments">Comments</label>
+        <textarea name="Comments" id="comment" cols="30" rows="10" spellcheck="true"></textarea>
+        <span id="messageError" class="error"></span><br>
+
+        <label for="selected_courses">Selected Course</label>
+        <select name="selected_courses" id="sc_course" multiple>
+            <option value="Web Programming">Web Programming</option>
+            <option value="Database">Database</option>
+            <option value="Data Structures">Data Structures</option>
+            <option value="Machine Learning">Machine Learning</option>
+            <option value="Deep Learning">Deep Learning</option>
+        </select>
+        <span id="sError" class="error"></span><br>
+
+        <label for="extracurricular_activities">EXTRA CURRICULAR ACTIVITIES</label>
+        <select name="extracurricular_activities" id="ec">
+            <option value="">Select</option>     
+            <option value="Sports">Sports</option>
+            <option value="Music">Music</option>
+            <option value="Art">Art</option>
+            <option value="Dance">Dance</option>
+        </select>
+        <span id="ecError" class="error"></span><br>
+        
+        <input type="submit" id="but" value="Submit"><br>
+
+        <div>
+            <label for="Data field">Data field</label>
+            <textarea name="Data field" id="data_field" cols="30" rows="10"></textarea>
+        </div>
+    </form>
+
+    <script>
+        function displayData(event) {
+            event.preventDefault();
+
+            var comments = document.getElementById('comment').value;
+            var selectedCourses = [];
+            var options = document.getElementById('sc_course').options;
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].selected) {
+                    selectedCourses.push(options[i].value);
+                }
+            }
+            var extracurricularActivity = document.getElementById('ec').value;
+            var isValid = true;
+
+            if (comments.trim() === "") {
+                document.getElementById('messageError').innerText = "Message is required";
+                isValid = false;
+            } else {
+                document.getElementById('messageError').innerText = "";
+            }
+           
+            if (selectedCourses.length === 0) {
+                document.getElementById('sError').innerText = "Please select courses";
+                isValid = false;
+            } else {
+                document.getElementById('sError').innerText = "";
+            }
+
+            if (extracurricularActivity === "") {
+                document.getElementById('ecError').innerText = "Please select extracurricular activities";
+                isValid = false;
+            } else {
+                document.getElementById('ecError').innerText = "";
+            }
+
+            if (isValid) {
+                var combinedResult = "Comments: " + comments + "\n";
+                combinedResult += "Selected Courses: " + selectedCourses.join(", ") + "\n";
+                combinedResult += "Extracurricular Activity: " + extracurricularActivity;
+
+                document.getElementById('data_field').value = combinedResult;
+            }
+
+            return false; 
+        }
+    </script>
+</body>
+</html>

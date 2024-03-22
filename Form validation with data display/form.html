@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <style>
+    .error {
+      color: red;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid black;
+      padding: 5px;
+    }
+  </style>
+  <script>
+    function displayData(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const tableData = `
+        <tr>
+          <td>Name:</td>
+          <td>${name}</td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td>${email}</td>
+        </tr>
+        <tr>
+          <td>Password:</td>
+          <td>${password}</td>
+        </tr>
+      `;
+
+      sessionStorage.setItem("userData", tableData);
+      window.open("displayData.html", "_blank");
+    }
+  </script>
+</head>
+<body>
+  <h1>Registration Form</h1>
+  <form id="registrationForm" onsubmit="displayData(event)">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    <br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" required>
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    const userData = sessionStorage.getItem("userData");
+    if (userData) {
+      const tableElement = document.createElement("table");
+      tableElement.innerHTML = userData;
+      document.body.appendChild(tableElement);
+    }
+  </script>
+</body>
+</html>

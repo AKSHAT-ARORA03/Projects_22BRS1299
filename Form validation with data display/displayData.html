@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Data</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid black;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>User Data</h1>
+  <table>
+    <tbody id="userData"></tbody>
+  </table>
+
+  <script>
+    const userData = sessionStorage.getItem("userData");
+    document.getElementById("userData").innerHTML = userData;
+  </script>
+</body>
+</html>
